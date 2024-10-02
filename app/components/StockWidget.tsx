@@ -24,6 +24,7 @@ const BASE_CACHE_DURATION = 300000; // 5 minutes in milliseconds
 
 const getCacheDuration = (index: number) => BASE_CACHE_DURATION * (index + 1);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetchStockData = async (symbol: string, index: number): Promise<any> => {
   const cacheDuration = getCacheDuration(index);
   const cachedData = localStorage.getItem(`stock_${symbol}`);
@@ -51,26 +52,7 @@ const fetchStockData = async (symbol: string, index: number): Promise<any> => {
   }
 };
 
-const fetchStocks = async (symbols: string[]): Promise<Stock[]> => {
-  const results = await Promise.all(symbols.map(async (symbol, index) => {
-    try {
-      const data = await fetchStockData(symbol, index);
-      return await transformApiData(data);
-    } catch (error) {
-      console.error(`Error fetching data for ${symbol}:`, error);
-      return null;
-    }
-  }));
-  
-  const successfulResults = results.filter((result): result is Stock => result !== null);
-  
-  if (successfulResults.length === 0) {
-    throw new Error('Failed to fetch data for all stocks');
-  }
-  
-  return successfulResults;
-};
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const transformApiData = async (apiData: any): Promise<Stock> => {
   const values: ApiDataValue[] = apiData.values;
   const latestPrice = parseFloat(values[0].close);
