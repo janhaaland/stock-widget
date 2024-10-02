@@ -367,7 +367,6 @@ export default function StockWidget() {
                     <div className="py-2">
                       <SkeletonStockItem />
                     </div>
-                    {index === 4 && <div className="border-b border-gray-200 dark:border-gray-700"></div>}
                   </React.Fragment>
                 ))}
               </div>
@@ -381,7 +380,6 @@ export default function StockWidget() {
                       stock={stock}
                       onSelect={() => setSelectedStock(stock)}
                     />
-                    {index === stocks.length - 1 && <div className="border-b border-gray-200 dark:border-gray-700"></div>}
                   </React.Fragment>
                 ))}
               </div>
